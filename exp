@@ -1,0 +1,277 @@
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/laasyaratakonda/explore.git
+git push -u origin main
+
+
+
+
+
+
+
+mkdir portfolio-site
+cd portfolio-site
+3.	Initialize Git:
+git init
+This creates a hidden .git folder inside the directory.
+
+2. Create a Sample HTML File
+echo "<!DOCTYPE html><html><head><title>My Portfolio</title></head><body><h1>Welcome!</h1></body></html>" > index.html
+
+3. Commit Changes (git add, git commit)
+➤ Steps:
+git add index.html
+git commit -m "Initial commit: Added basic portfolio page"
+This saves the changes to the local repository.
+
+4. Create a New Branch (git branch)
+➤ Steps:
+git branch about
+git checkout about
+Or shortcut:
+git checkout -b about
+You are now working on a separate branch named about.
+
+5. Make Changes on Branch and Commit
+Open index.html and add the following before </body>:
+<p>This is the about section.</p>
+Then:
+git add index.html
+git commit -m "Added about section"
+
+6. Merge Branch with Main (git merge)
+Switch to main branch:
+git checkout main
+Then merge:
+git merge about
+Changes from about branch are now merged into main.
+
+7. Push to GitHub (Remote Version Control)
+➤ Steps:
+1.	Create a new repository on GitHub (e.g., portfolio-site)
+2.	Connect local repo to GitHub:
+git remote add origin https://github.com/<your-username>/portfolio-site.git
+git push -u origin main
+
+8. Clone Repository (git clone)
+You can now clone the repository on another system or folder:
+git clone https://github.com/<your-username>/portfolio-site.git
+This copies the entire project (including history and branches) to a new location.
+
+
+Expected Output
+•	A repository initialized and committed locally.
+•	New branches created and merged.
+•	Project pushed to GitHub successfully.
+•	Repository cloned from GitHub.
+
+Tips
+•	Use git log to see commit history.
+•	Use git status to see untracked/modified files.
+•	Use git branch -a to list all branches.
+
+
+
+
+
+
+
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Basics</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    #output {
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    h1 { color: #007acc; }
+  </style>
+</head>
+<body>
+
+  <h1>JavaScript Program — Variables, Functions, and Objects</h1>
+  <div id="output"></div>
+
+  <script>
+    // --- VARIABLES ---
+    let name = "Suresh";   // block-scoped variable
+    const pi = 3.14159;     // constant
+    var age = 25;           // function-scoped (legacy)
+
+    // --- FUNCTIONS ---
+    function greet(userName) {
+      return "Hello, " + userName + "!";
+    }
+    const square = (num) => num * num;   // arrow function
+
+    // --- OBJECT ---
+    const student = {
+      id: 101,
+      fullName: "Sita Ram",
+      marks: { math: 85, science: 92 },
+      displayInfo: function() {
+        return `ID: ${this.id}, Name: ${this.fullName}`;
+      }
+    };
+
+    // --- OUTPUT TO PAGE ---
+    const out = document.getElementById("output");
+    out.innerHTML = `
+      <p><b>Variables:</b><br>
+         name = ${name}, age = ${age}, pi = ${pi}</p>
+      <p><b>Functions:</b><br>
+         greet("Suresh") → ${greet(name)}<br>
+         square(5) → ${square(5)}</p>
+      <p><b>Object:</b><br>
+         student.displayInfo() → ${student.displayInfo()}<br>
+         Math Marks = ${student.marks.math}, Science Marks = ${student.marks.science}</p>
+    `;
+  </script>
+
+</body>
+</html>
+Expected Output:
+•	The webpage displays variable values (name, age, pi).
+•	It shows function outputs (greet and square).
+•	It displays the student object information (ID, Name, Marks).
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AJAX Form</title>
+</head>
+<body>
+  <h1>AJAX Form Example</h1>
+  <form id="contactForm">
+    <label>Name: <input type="text" name="name" required></label><br><br>
+    <label>Email: <input type="email" name="email" required></label><br><br>
+    <button type="submit">Submit</button>
+  </form>
+  <h2>Saved Contacts</h2>
+  <ul id="contactList"></ul>
+  <script src="main.js"></script>
+</body>
+</html>
+-------------------------------------------------
+main.js
+const API = "https://jsonplaceholder.typicode.com/users"; // Mock server
+const form = document.getElementById("contactForm");
+const list = document.getElementById("contactList");
+
+// Initial fetch (load existing 10 dummy users)
+async function fetchContacts() {
+  const res = await fetch(API);
+  const users = await res.json();
+  render(users);
+}
+
+// Handle form submission
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(form));
+
+  // Send POST request (dummy save on JSONPlaceholder)
+  const res = await fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  // Get the dummy response (server returns data with an id)
+  const created = await res.json();
+
+  //append
+  list.insertAdjacentHTML("beforeend", `<li>${created.name} — ${created.email}</li>`);
+
+  // Clear form
+  form.reset();
+});
+
+// Render function
+function render(users) {
+  list.innerHTML = users.map(u => `<li>${u.name} — ${u.email}</li>`).join("");
+}
+•	User fills form and clicks Submit.
+•	Data is sent to the mock server via AJAX.
+•	Page displays all stored contacts below the form.
+Result:
+The AJAX-based form was successfully created. Data submission and retrieval from the mock server were demonstrated using the fetch() API.
+
+
+
+
+
+
+
+DOCTYPE html>
+<html>
+<head>
+    <title>Resume</title>
+    <link rel="stylesheet" type="text/css" href="external.css">
+</head>
+<body>
+    <h2 align="center">Resume</h2>
+    <table>
+        <tr>
+            <td>
+                <p><strong>LAASYA PRIYA</strong></p>
+                <p>3-110(a), Madanapalle, A.P, 517325</p>
+                <a href="mailto:laasyapriyaratakonda@gmail.com" target="_blank">Email: laasyapriyaratakonda@gmail.com</a><br>
+                <a href="https://www.linkedin.com/in/laasya-priya-18423a354" target="_blank">LinkedIn: laasya priya</a><br>
+                <a href="https://github.com/laasyaratakonda" target="_blank">GitHub: laasya priya</a>
+                <p>Phone: 9515576035</p>
+            </td>
+            <td align="center">
+                <p><strong>Profile Photo</strong></p>
+                <img src="PASSPHOTO.jpg" width="100" height="200" alt="photo">
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <p><strong>Professional Summary</strong></p>
+    <p>An enthusiastic AI student who wants to apply my knowledge in programming and contribute meaningfully.</p>
+    <hr>
+    <p><strong>Languages Known</strong>: Python</p>
+    <p><strong>Other Interests</strong>: Machine Learning</p>
+    <hr>
+    <p><strong>Projects</strong></p>
+    <p>LLM training using RLHF.</p>
+    <hr>
+    <p><strong>Internship</strong></p>
+    <p>Machine Learning Intern at NIT Puducherry</p>
+    <hr>
+    <p><strong>Hobbies</strong></p>
+    <p>Playing games, reading books</p>
+    <footer>
+        <p>Thank you for reviewing my resume!</p>
+    </footer>
+</body>
+
+
+
+
+
+
+
+
+
+
